@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  notes-db:
+    container_name: notes-db
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - ./backend/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234567
+      - POSTGRES_DB=notesdb
+
+  backend:
+    depends_on:
+      - notes-db
+    build: ./backend
+    volumes:
+      - ./backend/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - HOST=notes-db
+      - DB_PORT=5432
+      - USERDB=postgres
+      - PASSWORD=1234567
+      - DATABASE=notesdb
+      - JWT_SECRET=NOTES_API
+      - BCRYPT_JUMPS=10
+      - PORT=3000
