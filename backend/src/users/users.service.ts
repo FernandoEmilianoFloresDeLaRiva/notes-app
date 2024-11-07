@@ -22,7 +22,7 @@ export class UsersService {
     try {
       const { email, password } = createUserDto;
       const userExisting = await this._userRepository.findByEmail(email);
-      if (!userExisting) {
+      if (userExisting) {
         throw new ConflictException('User already exists');
       }
       const passwordHashed = await this._hashService.hashedPassword(password);
@@ -33,7 +33,7 @@ export class UsersService {
       const res = await this._userRepository.createUser(reqUserDto);
       return res;
     } catch (error) {
-      throw new Error(error);
+      throw error
     }
   }
 
@@ -57,7 +57,7 @@ export class UsersService {
         token: await this._tokenService.sign(userRest),
       };
     } catch (error) {
-      throw new Error(error);
+      throw error
     }
   }
 }

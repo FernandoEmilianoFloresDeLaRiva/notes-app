@@ -12,7 +12,7 @@ export class UserRepository {
 
   async createUser(reqUser: CreateUserI) {
     try {
-      const res = await this._userRepository.create(reqUser);
+      const res = await this._userRepository.save(reqUser);
       return res;
     } catch (error) {
       throw new Error(error);
