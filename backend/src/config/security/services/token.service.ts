@@ -13,7 +13,17 @@ export class TokenService {
   }
   async decode(token: string): Promise<any> {
     try {
-      return await this._jwtService.decode(token);
+      const {
+        iat: _,
+        exp,
+        ...userPayload
+      } = await this._jwtService.decode(token);
+      const currentDate = new Date();
+      const expiresDate = new Date(exp);
+      return {
+        user: userPayload,
+        isExpired: +expiresDate <= +currentDate / 1000,
+      };
     } catch (error) {
       throw new Error(error);
     }

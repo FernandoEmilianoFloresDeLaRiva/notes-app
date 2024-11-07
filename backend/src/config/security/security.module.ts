@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { envs } from '../utils/getEnvVars';
 import { TokenService } from './services/token.service';
 import { HashedService } from './services/hashed.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -13,13 +14,7 @@ import { HashedService } from './services/hashed.service';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [
-    TokenService,
-    HashedService,
-],
-exports: [
-    TokenService,
-    HashedService,
-  ],
+  providers: [AuthGuard, TokenService, HashedService],
+  exports: [AuthGuard, TokenService, HashedService],
 })
 export class SecurityModule {}

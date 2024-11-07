@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { NotesRepository } from './repository/notes.repository';
 
 @Injectable()
 export class NotesService {
-  create(createNoteDto: CreateNoteDto) {
-    return 'This action adds a new note';
+  constructor(
+    @Inject(NotesRepository) private readonly _noteRepository: NotesRepository,
+  ) {}
+  async create(createNoteDto: CreateNoteDto) {
+    try {
+      const res = await this._noteRepository.createNote(createNoteDto);
+      return res;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all notes`;
+  async findAll(archiveStatus: 0 | 1) {
+    try {
+      const res =
+        await this._noteRepository.getNotesByArchiveStatus(archiveStatus);
+      return res;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async update(id: number, updateNoteDto: UpdateNoteDto) {
+    try {
+      const isExisting = await this._noteRepository.getNoteById(id);
+      if (!isExisting) {
+        throw new NotFoundException('This note was not found');
+      }
+      const res = await this._noteRepository.updateNote(updateNoteDto, id);
+      return res;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async remove(id: number) {
+    try {
+      const isExisting = await this._noteRepository.getNoteById(id);
+      if (!isExisting) {
+        throw new NotFoundException('This note was not found');
+      }
+      const res = await this._noteRepository.deleteNote(id);
+    } catch (error) {
+      throw error;
+    }
   }
 }

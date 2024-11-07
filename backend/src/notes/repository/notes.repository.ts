@@ -20,7 +20,7 @@ export class NotesRepository {
     }
   }
 
-  async editNote(noteUpdateReq: UpdateNoteDto, idReq: number) {
+  async updateNote(noteUpdateReq: UpdateNoteDto, idReq: number) {
     try {
       const res = await this._noteRepository.update(
         {
@@ -50,11 +50,11 @@ export class NotesRepository {
     }
   }
 
-  async getArchiveNotes() {
+  async getNotesByArchiveStatus(statusArchive: 0 | 1) {
     try {
       const res = await this._noteRepository.findBy({
         active: 1,
-        archive: 1,
+        archive: statusArchive,
       });
       return res;
     } catch (error) {
@@ -62,11 +62,11 @@ export class NotesRepository {
     }
   }
 
-  async getNotesWithoutArchive() {
+  async getNoteById(id: number) {
     try {
-      const res = await this._noteRepository.findBy({
+      const res = await this._noteRepository.findOneBy({
+        id: id,
         active: 1,
-        archive: 0,
       });
       return res;
     } catch (error) {
