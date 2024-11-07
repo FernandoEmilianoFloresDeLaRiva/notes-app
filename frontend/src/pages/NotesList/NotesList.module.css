@@ -1,13 +1,10 @@
 .notesContainer {
   overflow-y: scroll;
-  width: 100%;
-  padding-top: 2%;
-  height: 98%;
-  display: flex;
-  justify-content: space-evenly;
-  gap: 2%;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  width: 96%;
+  height: 96%;
+  display: grid;
+  padding: 2%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px 16px;
   scroll-behavior: smooth;
-
 }

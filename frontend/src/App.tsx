@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import "./App.css";
 import { HomeLayout } from "./layout/HomeLayout/HomeLayout";
 import { NotesList } from "./pages/NotesList/NotesList";
+import { Login } from "./pages/Login/Login";
 
 function App() {
   useEffect(() => {
@@ -9,9 +10,10 @@ function App() {
     console.log(url);
   }, []);
   return (
-    <HomeLayout>
-      <NotesList />
-    </HomeLayout>
+    <Login />
+    // <HomeLayout>
+    //   <NotesList />
+    // </HomeLayout>
   );
 }
 
