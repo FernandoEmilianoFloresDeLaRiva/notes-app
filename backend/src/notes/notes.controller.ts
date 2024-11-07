@@ -25,9 +25,12 @@ export class NotesController {
     return this.notesService.create(createNoteDto);
   }
 
-  @Get()
-  findAll(@Query('archive', ParseIntPipe) archiveStatus: 0 | 1 = 0) {
-    return this.notesService.findAll(archiveStatus);
+  @Get(':id')
+  findAll(
+    @Param('id', ParseIntPipe) idAuthor: number,
+    @Query('archive', ParseIntPipe) archiveStatus: 0 | 1 = 0,
+  ) {
+    return this.notesService.findAll(idAuthor, archiveStatus);
   }
 
   @Patch(':id')

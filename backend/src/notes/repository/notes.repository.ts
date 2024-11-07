@@ -50,11 +50,12 @@ export class NotesRepository {
     }
   }
 
-  async getNotesByArchiveStatus(statusArchive: 0 | 1) {
+  async getNotesByArchiveStatus(idAuthor : number,statusArchive: 0 | 1) {
     try {
       const res = await this._noteRepository.findBy({
         active: 1,
         archive: statusArchive,
+        author : idAuthor,
       });
       return res;
     } catch (error) {

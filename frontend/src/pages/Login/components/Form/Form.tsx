@@ -1,10 +1,10 @@
-import react from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../../components/Input/Input";
 import styles from "./Form.module.css";
-import { LoginUserT } from "../../../../entities/entity";
+import { LoginUserT, useAppDispatch } from "../../../../entities/entity";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginUserSchema } from "../../validator/LoginUser.validator";
+import { loginUserAsync } from "../../../../redux/Auth/thunks/loginUser.async";
 
 export const Form = () => {
   const {
@@ -15,12 +15,18 @@ export const Form = () => {
     resolver: zodResolver(LoginUserSchema),
   });
 
-  const imprimir = async (data: LoginUserT) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+
+  const handleOnSubmit = async (data: LoginUserT) => {
+    const res = await dispatch(loginUserAsync(data));
+    console.log(res)
+    // const statusRedux = getStatusActionRedux(res?.type);
+    // setStatusActionRedux(statusRedux);
+    // setError(res);
   };
   return (
     <div className={styles.mainFormContainer}>
-      <form onSubmit={handleSubmit(imprimir)} className={styles.formContainer}>
+      <form onSubmit={handleSubmit(handleOnSubmit)} className={styles.formContainer}>
         <h1>My Note Hub</h1>
         <div className={styles.inputContainers}>
           <Input

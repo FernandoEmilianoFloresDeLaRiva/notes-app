@@ -17,10 +17,10 @@ export class NotesService {
     }
   }
 
-  async findAll(archiveStatus: 0 | 1) {
+  async findAll(idAuthor : number, archiveStatus: 0 | 1) {
     try {
       const res =
-        await this._noteRepository.getNotesByArchiveStatus(archiveStatus);
+        await this._noteRepository.getNotesByArchiveStatus(idAuthor, archiveStatus);
       return res;
     } catch (error) {
       throw error;
