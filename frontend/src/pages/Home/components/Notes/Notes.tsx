@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Notes.module.css";
-import { DropdownBtn } from "../../../components/DropdownBtn/DropdownBtn";
+import { DropdownBtn } from "../../../../components/DropdownBtn/DropdownBtn";
 
 interface Props {
   title: string;

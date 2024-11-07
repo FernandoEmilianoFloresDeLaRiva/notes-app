@@ -1,24 +1,34 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../entities/entity";
-import { deleteNoteByIdService } from "../services/services/notes";
+import {
+  deleteNoteByIdService,
+  updateNoteByIdService,
+} from "../services/services/notes";
 
-export const useFunctionsNotes = (id: number, archive : number) => {
+export const useFunctionsNotes = (id: number, archive: number) => {
   const { token } = useSelector((state: RootState) => state.auth);
 
   const deleteNote = async () => {
     try {
       await deleteNoteByIdService(id, token);
       window.location.reload();
-    } catch (error : any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       throw new Error(error);
     }
   };
 
   const archivedNote = async () => {
     try {
-        // cambiar achivado al reves y mandarlo como body
-    } catch (error) {
-        throw new Error(error);
+      const isArchive = archive === 1 ? 0 : 1;
+      await updateNoteByIdService(id, token, { archive: isArchive });
+      window.location.reload();
+      // cambiar achivado al reves y mandarlo como body
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
     }
-  }
+  };
+
+  return { deleteNote, archivedNote };
 };

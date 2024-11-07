@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { DashboardContext } from "../pages/NotesList/Context/DashboardContext/DashboardContext";
+import { DashboardContext } from "../pages/Home/Context/DashboardContext/DashboardContext";
 import { RootState } from "../entities/entity";
 import { useSelector } from "react-redux";
 import { DASHBOARD_NAMES } from "../constants";

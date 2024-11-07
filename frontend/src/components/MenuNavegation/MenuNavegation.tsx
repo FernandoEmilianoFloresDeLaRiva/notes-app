@@ -4,7 +4,7 @@ import { logout } from "../../redux/Auth/auth.slice";
 import { ItemNavegation } from "../ItemNavegation/ItemNavegation";
 import styles from "./MenuNavegation.module.css";
 import { useContext } from "react";
-import { DashboardContext } from "../../pages/NotesList/Context/DashboardContext/DashboardContext";
+import { DashboardContext } from "../../pages/Home/Context/DashboardContext/DashboardContext";
 import { DASHBOARD_NAMES } from "../../constants";
 
 export const MenuNavegation = () => {
