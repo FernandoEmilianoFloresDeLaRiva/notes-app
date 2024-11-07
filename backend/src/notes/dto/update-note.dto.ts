@@ -1,7 +1,8 @@
 import { IsNumber, IsOptional, IsString, Max, Min } from "class-validator";
+import { UpdateNoteI } from "../interfaces/UpdateNoteI";
 
 
-export class UpdateNoteDto {
+export class UpdateNoteDto implements UpdateNoteI{
     @IsOptional()
     @IsString()
     title : string;
