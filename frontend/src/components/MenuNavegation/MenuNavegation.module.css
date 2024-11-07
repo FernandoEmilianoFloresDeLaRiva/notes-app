@@ -1,0 +1,23 @@
+.navContainer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  padding: 0;
+  background-color: rgb(59, 58, 57);
+  box-shadow: 0 0 10px 0.1px rgb(34, 34, 34);
+}
+
+.navContainer ul {
+  max-width: 100%;
+  min-width: 60%;
+  height: 90%;
+  gap: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
