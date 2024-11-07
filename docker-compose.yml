@@ -30,3 +30,5 @@ services:
       - JWT_SECRET=NOTES_API
       - BCRYPT_JUMPS=10
       - PORT=3000
+    ports:
+      - 3000:3000

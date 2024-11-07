@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { envs } from './config/utils/getEnvVars';
+import { NotesModule } from './notes/notes.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { envs } from './config/utils/getEnvVars';
       logging: true, 
     }),
     UsersModule,
+    NotesModule,
   ],
   controllers: [],
   providers: [],
