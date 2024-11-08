@@ -15,6 +15,7 @@ services:
       - POSTGRES_DB=notesdb
 
   backend:
+    container_name: backend
     depends_on:
       - notes-db
     build: ./backend
@@ -32,3 +33,17 @@ services:
       - PORT=3000
     ports:
       - 3000:3000
+
+  frontend:
+    depends_on:
+      - backend
+    build: 
+      context: ./frontend
+      args:
+        VITE_API_URL: http://backend:3000/
+    ports:
+      - 80:80
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://backend:3000/
+    restart: always

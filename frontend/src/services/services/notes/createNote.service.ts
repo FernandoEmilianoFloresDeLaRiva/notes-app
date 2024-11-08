@@ -13,6 +13,7 @@ export const postNoteService = async (
     const reqBody = new CreateNoteDTO(data, id);
     const response = await postWithAuth(BASE_URL_NOTES, token, reqBody);
     generateAlertSuccess("Your note has been successfully created");
+    window.location.reload();
     return response;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
