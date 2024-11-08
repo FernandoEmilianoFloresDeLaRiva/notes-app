@@ -17,10 +17,12 @@ export class NotesService {
     }
   }
 
-  async findAll(idAuthor : number, archiveStatus: 0 | 1) {
+  async findAll(idAuthor: number, archiveStatus: 0 | 1) {
     try {
-      const res =
-        await this._noteRepository.getNotesByArchiveStatus(idAuthor, archiveStatus);
+      const res = await this._noteRepository.getNotesByArchiveStatus(
+        idAuthor,
+        archiveStatus,
+      );
       return res;
     } catch (error) {
       throw error;
@@ -47,6 +49,18 @@ export class NotesService {
         throw new NotFoundException('This note was not found');
       }
       const res = await this._noteRepository.deleteNote(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findOneById(id: number) {
+    try {
+      const res = await this._noteRepository.getNoteById(id);
+      if (!res) {
+        throw new NotFoundException('This note was not found');
+      }
+      return res;
     } catch (error) {
       throw error;
     }

@@ -7,7 +7,10 @@ interface Props {
 }
 
 export const DropdownBtn: React.FC<Props> = ({ idNote, archive }) => {
-  const { deleteNote, archivedNote } = useFunctionsNotes(idNote, archive);
+  const { deleteNote, archivedNote, openModal } = useFunctionsNotes(
+    idNote,
+    archive
+  );
   return (
     <div className={styles.dropdown}>
       <button className={styles.dropbtn}>
@@ -18,7 +21,7 @@ export const DropdownBtn: React.FC<Props> = ({ idNote, archive }) => {
           {archive == 1 ? "Unarchive" : "Archive"}
         </button>
         <button onClick={deleteNote}>Delete</button>
-        <button>Edit</button>
+        <button onClick={openModal}>Edit</button>
       </div>
     </div>
   );

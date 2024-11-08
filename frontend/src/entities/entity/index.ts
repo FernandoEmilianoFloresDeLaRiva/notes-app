@@ -7,3 +7,4 @@ export * from './reduxDispatch.entity';
 export * from './reduxSliceName.entity';
 export * from './reduxState.entity';
 export * from './tokenResponse.entity';
+export * from './updateNoteContextI';

@@ -4,9 +4,12 @@ import {
   deleteNoteByIdService,
   updateNoteByIdService,
 } from "../services/services/notes";
+import { useContext } from "react";
+import { EditNoteContext } from "../pages/Home/Context/EditNoteContext";
 
 export const useFunctionsNotes = (id: number, archive: number) => {
   const { token } = useSelector((state: RootState) => state.auth);
+  const { changeNoteState } = useContext(EditNoteContext);
 
   const deleteNote = async () => {
     try {
@@ -30,5 +33,12 @@ export const useFunctionsNotes = (id: number, archive: number) => {
     }
   };
 
-  return { deleteNote, archivedNote };
+  const openModal = () => {
+    changeNoteState({
+      isOpen: true,
+      idNote: id,
+    });
+  };
+
+  return { deleteNote, archivedNote, openModal };
 };

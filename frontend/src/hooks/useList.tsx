@@ -6,7 +6,7 @@ import { DASHBOARD_NAMES } from "../constants";
 import { CreateNoteResponse } from "../entities/dtos/CreateNoteResponse.dto";
 import { getNoteByUserIdAndArchiveService } from "../services/services/notes/getNotes.service";
 
-export const useList = () => {
+export const useList = (isModalOpen = false) => {
   const [notes, setNotes] = useState<CreateNoteResponse[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { dashboardName } = useContext(DashboardContext);
@@ -15,7 +15,8 @@ export const useList = () => {
     if (
       !(
         dashboardName === DASHBOARD_NAMES.SEE_ALL ||
-        dashboardName === DASHBOARD_NAMES.SEE_ARCHIVES
+        dashboardName === DASHBOARD_NAMES.SEE_ARCHIVES ||
+        !isModalOpen
       )
     )
       return;
@@ -31,6 +32,6 @@ export const useList = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [dashboardName]);
+  }, [dashboardName, isModalOpen]);
   return { isLoading, notes };
 };

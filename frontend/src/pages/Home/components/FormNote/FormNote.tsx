@@ -1,37 +1,42 @@
 import styles from "./FormNote.module.css";
 import { Input } from "../../../../components/Input/Input";
 import { useForm } from "react-hook-form";
-import { CreateNoteT, RootState } from "../../../../entities/entity";
+import { CreateNoteT } from "../../../../entities/entity";
 import { CreateNoteSchema } from "../../validator/CreateNote.validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextArea } from "../../../../components/TextArea/TextArea";
-import { postNoteService } from "../../../../services/services/notes/createNote.service";
-import { useSelector } from "react-redux";
 import { useContext } from "react";
 import { DashboardContext } from "../../Context/DashboardContext/DashboardContext";
 import { DASHBOARD_NAMES } from "../../../../constants";
+import { useValueForNote } from "../../../../hooks/useValueForNote";
 
-export const FormNote = () => {
-  const { user, token } = useSelector((root: RootState) => root.auth);
+interface Props {
+  titleForm: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleAction: (data: any) => void;
+  token: string;
+}
+
+export const FormNote: React.FC<Props> = ({
+  titleForm = "",
+  handleAction,
+  token,
+}) => {
   const { setDashboardName } = useContext(DashboardContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<CreateNoteT>({
     resolver: zodResolver(CreateNoteSchema),
   });
 
-  const handleOnSubmit = async (data: CreateNoteT) => {
-    try {
-      const res = await postNoteService(user.id, data, token);
-      console.log(res);
-      setDashboardName(DASHBOARD_NAMES.SEE_ALL);
+  useValueForNote(token, setValue);
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      throw new Error(error);
-    }
+  const handleOnSubmit = (data: CreateNoteT) => {
+    handleAction(data);
+    setDashboardName(DASHBOARD_NAMES.SEE_ALL);
   };
 
   return (
@@ -40,7 +45,7 @@ export const FormNote = () => {
         onSubmit={handleSubmit(handleOnSubmit)}
         className={styles.formContainer}
       >
-        <h1>Let's created a new note!</h1>
+        <h1>{titleForm}</h1>
         <div className={styles.inputContainers}>
           <Input
             titleInput="Add the title of your note"

@@ -1,4 +1,5 @@
 .notesContainer {
+  position: relative;
   overflow-y: scroll;
   width: 96%;
   height: 96%;

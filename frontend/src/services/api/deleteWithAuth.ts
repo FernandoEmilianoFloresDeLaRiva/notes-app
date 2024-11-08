@@ -18,7 +18,13 @@ export const deleteWithAuth = async (url: string, token: string) => {
       const err: any = await response.json();
       throw new Error(err?.message);
     }
-    return response.json();
+
+    if (response.status === 204) {
+      return null;
+    }
+
+    const jsonRes = await response.json();
+    return jsonRes;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     throw new Error(err);
