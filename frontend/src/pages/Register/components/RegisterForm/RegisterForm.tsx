@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Input } from "../../../../components/Input/Input";
-import styles from "./Form.module.css";
-import { LoginUserT, useAppDispatch } from "../../../../entities/entity";
+import styles from "./RegisterForm.module.css";
+import { CreateUserT } from "../../../../entities/entity";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginUserSchema } from "../../validator/LoginUser.validator";
-import { loginUserAsync } from "../../../../redux/Auth/thunks/loginUser.async";
+import { CreateUserSchema } from "../../validator/CreateUser.validator";
+import { registerUserService } from "../../../../services/services/users/registerUser.service";
 import { useLocation } from "wouter";
 
-export const Form = () => {
+export const RegisterForm = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_location, setLocation] = useLocation();
 
@@ -15,15 +15,17 @@ export const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginUserT>({
-    resolver: zodResolver(LoginUserSchema),
+  } = useForm<CreateUserT>({
+    resolver: zodResolver(CreateUserSchema),
   });
 
-  const dispatch = useAppDispatch();
-
-  const handleOnSubmit = async (data: LoginUserT) => {
-    const res = await dispatch(loginUserAsync(data));
-    console.log(res);
+  const handleOnSubmit = async (data: CreateUserT) => {
+    try {
+      await registerUserService(data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
+    }
   };
   return (
     <div className={styles.mainFormContainer}>
@@ -33,6 +35,12 @@ export const Form = () => {
       >
         <h1>My Note Hub</h1>
         <div className={styles.inputContainers}>
+          <Input
+            titleInput="Your Username"
+            text="username"
+            config={register("username")}
+            error={errors?.username?.message}
+          />
           <Input
             titleInput="Your Email"
             text="email@gmail.com"
@@ -49,16 +57,16 @@ export const Form = () => {
           />
         </div>
         <button className={styles.buttonLogIn} type="submit">
-          Log In
+          Register
         </button>
         <div className={styles.containerSignUp}>
-          <span>Don't have an account?</span>
+          <span>Already have an account?</span>
           <button
             onClick={() => {
-              setLocation("/register");
+              setLocation("/");
             }}
           >
-            Sign up
+            Sign In
           </button>
         </div>
       </form>

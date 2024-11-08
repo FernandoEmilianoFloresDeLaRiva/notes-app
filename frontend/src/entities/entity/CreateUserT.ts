@@ -1,4 +1,4 @@
 import {z} from "zod"
-import { CreateUserSchema } from "../../pages/Login/validator/CreateUser.validator";
+import { CreateUserSchema } from "../../pages/Register/validator/CreateUser.validator";
 
 export type CreateUserT = z.infer<typeof CreateUserSchema>;

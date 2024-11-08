@@ -18,7 +18,7 @@ export const Input: React.FC<Props> = ({
   error = "",
 }) => {
   return (
-    <div className={styles.containerInputs}>
+    <div className={`${styles.containerInputs} ${error !== "" ? styles.withErrors : ""}` }>
       <label htmlFor={titleInput}>{titleInput}</label>
       <input
         id={titleInput}

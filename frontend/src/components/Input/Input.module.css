@@ -32,6 +32,11 @@
   gap: 10px;
 }
 
+.withErrors {
+  gap: 5px;
+  margin-top: -20px;
+}
+
 .error {
   font-family: "Roboto";
   color: rgb(219, 46, 46);
