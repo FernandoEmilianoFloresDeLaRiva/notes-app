@@ -2,7 +2,6 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { NotesRepository } from './repository/notes.repository';
-import { NotesCategoryRepository } from 'src/categories/repository/notes_Category.repository';
 
 @Injectable()
 export class NotesService {
@@ -11,9 +10,11 @@ export class NotesService {
   ) {}
   async create(createNoteDto: CreateNoteDto) {
     try {
-      const { idCategory: categories } = createNoteDto;
-      const res = await this._noteRepository.createNote(createNoteDto, categories);
-      
+      const res = await this._noteRepository.createNote(
+        createNoteDto,
+        createNoteDto?.idCategory,
+      );
+
       return res;
     } catch (error) {
       throw new Error(error);

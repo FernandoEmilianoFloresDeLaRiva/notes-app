@@ -19,4 +19,13 @@ export class NotesCategoryRepository {
       throw new Error(error);
     }
   }
+
+  async deleteNoteCategory(id: number) {
+    try {
+      const res = await this._notesCategoryRepository.delete(id);
+      return res;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }

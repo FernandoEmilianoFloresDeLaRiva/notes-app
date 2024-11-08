@@ -15,7 +15,7 @@ export class NotesRepository {
     private readonly dataSource: DataSource,
   ) {}
 
-  async createNote(noteReq: CreateNoteI, categories: number[]) {
+  async createNote(noteReq: CreateNoteI, categories: number[] = []) {
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
