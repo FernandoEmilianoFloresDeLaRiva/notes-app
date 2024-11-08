@@ -32,6 +32,7 @@ export const NoteList: React.FC<Props> = ({ categories }) => {
       {editNoteState.isOpen && (
         <ModalLayout handleClose={handleClose}>
           <FormNote
+            categories={categories}
             token={token}
             titleForm="Let's improve this note"
             handleAction={async (data) => {
@@ -39,7 +40,8 @@ export const NoteList: React.FC<Props> = ({ categories }) => {
                 const res = await updateNoteByIdService(
                   editNoteState.idNote,
                   token,
-                  data
+                  data,
+                  data.categories,
                 );
                 changeNoteState(INITIAL_STATE_EDIT_NOTE);
                 console.log(res);
@@ -52,7 +54,7 @@ export const NoteList: React.FC<Props> = ({ categories }) => {
         </ModalLayout>
       )}
       <Select categories={categories} setCategory={setCategory} />
-      <div className={styles.notesContainer}> 
+      <div className={styles.notesContainer}>
         {notes?.length === 0 ? (
           <NoDataAvailable message="No notes to show" />
         ) : (
@@ -65,6 +67,8 @@ export const NoteList: React.FC<Props> = ({ categories }) => {
                 description={n.description}
                 idNote={n.id}
                 createdAt={n.created_at}
+                categoryName={n.id_category}
+                categories={categories}
               />
             );
           })

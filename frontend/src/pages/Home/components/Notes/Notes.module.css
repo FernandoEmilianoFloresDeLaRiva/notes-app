@@ -4,8 +4,8 @@
   width: 92%;
   display: inline-block;
   padding: 1% 4%;
-  height: 200px;
-  min-height: 200px;
+  height: 250px;
+  min-height: 250px;
   max-height: 500px;
   border-radius: 5px;
   overflow-y: scroll;
@@ -22,6 +22,18 @@
   color: #ffffff93;
   font-weight: bolder;
 }
+
+.containerCategories {
+  margin-top: 2px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: rgba(0, 180, 204, 1);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

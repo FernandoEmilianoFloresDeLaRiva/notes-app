@@ -37,7 +37,7 @@ export const FormNote: React.FC<Props> = ({
     resolver: zodResolver(CreateNoteSchema),
   });
 
-  useValueForNote(token, setValue);
+  useValueForNote(token, setValue, setSelectedCategories);
 
   const handleOnSubmit = (data: CreateNoteT) => {
     handleAction({ ...data, categories: selectedCategories });

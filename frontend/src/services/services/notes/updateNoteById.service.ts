@@ -6,10 +6,18 @@ import { updateWithAuth } from "../../api";
 export const updateNoteByIdService = async (
   id: number,
   token: string,
-  body: UpdateNote
+  body: UpdateNote,
+  categories: number[]
 ): Promise<void> => {
   try {
-    await updateWithAuth(`${BASE_URL_NOTES}/${id}`, token, body);
+    const reqBody = {
+      title: body?.title,
+      description: body?.description,
+      active: body?.active,
+      archive: body?.archive,
+      idCategory: categories,
+    };
+    await updateWithAuth(`${BASE_URL_NOTES}/${id}`, token, reqBody);
     generateAlertSuccess("Your note has been successfully updated");
     return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

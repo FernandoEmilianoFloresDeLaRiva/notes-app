@@ -7,7 +7,8 @@ import { CreateNoteResponse } from "../entities/dtos";
 
 export const useValueForNote = (
   token: string,
-  setValue: UseFormSetValue<CreateNoteT>
+  setValue: UseFormSetValue<CreateNoteT>,
+  setSelectedCategories
 ) => {
   const { editNoteState } = useContext(EditNoteContext);
   const { idNote } = editNoteState;
@@ -19,6 +20,10 @@ export const useValueForNote = (
         const { title, description } = res;
         setValue("title", title);
         setValue("description", description);
+        const categoryIds = res?.id_category.map(
+          (category) => category.idCategory
+        );
+        setSelectedCategories(categoryIds);
       } catch (error) {
         console.error(error);
       }

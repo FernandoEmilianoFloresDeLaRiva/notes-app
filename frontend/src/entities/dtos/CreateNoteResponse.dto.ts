@@ -1,4 +1,5 @@
 import { NoteResponse } from "../entity";
+import { Category_NoteI } from "../entity/Category_NoteI";
 
 export class CreateNoteResponse {
   id: number;
@@ -8,11 +9,7 @@ export class CreateNoteResponse {
   archive: number;
   author: number;
   created_at: string;
-  id_category: {
-    id: number;
-    idNote: number;
-    idCategory: number;
-  }[];
+  id_category: Category_NoteI[];
   constructor(tokenRes: NoteResponse) {
     this.id = tokenRes?.id;
     this.title = tokenRes?.title;
