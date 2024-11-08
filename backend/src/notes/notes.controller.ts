@@ -16,7 +16,10 @@ import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { AuthGuard } from 'src/config/security/guards/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Notes')
+@ApiBearerAuth('JWT-auth')
 @UseGuards(AuthGuard)
 @Controller('notes')
 export class NotesController {
