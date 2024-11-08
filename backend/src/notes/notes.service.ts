@@ -35,11 +35,12 @@ export class NotesService {
 
   async update(id: number, updateNoteDto: UpdateNoteDto) {
     try {
+      const {idCategory, ...restBody} = updateNoteDto
       const isExisting = await this._noteRepository.getNoteById(id);
       if (!isExisting) {
         throw new NotFoundException('This note was not found');
       }
-      const res = await this._noteRepository.updateNote(updateNoteDto, id);
+      const res = await this._noteRepository.updateNote(restBody, id, idCategory);
       return res;
     } catch (error) {
       throw error;

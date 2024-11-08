@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsNumber,
   IsOptional,
   IsString,
@@ -24,4 +25,8 @@ export class UpdateNoteDto implements UpdateNoteI {
   @Min(0)
   @Max(1)
   archive: 1 | 0;
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  idCategory?: number[];
 }

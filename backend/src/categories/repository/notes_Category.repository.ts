@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
 import { CreateNoteCategoriesI } from '../interfaces';
 import { Notes_Category } from '../entities/notes_Category.entity';
 
@@ -27,5 +27,36 @@ export class NotesCategoryRepository {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  async updateNoteCategory(idNote: number, idCategories: number[]) {
+    await this._notesCategoryRepository.manager.transaction(async (manager) => {
+      await manager.delete(Notes_Category, {
+        idNote: idNote,
+        idCategory: Not(In(idCategories)),
+      });
+
+      const existingCategories = await this._notesCategoryRepository.find({
+        where: {
+          idNote: idNote,
+          idCategory: In(idCategories),
+        },
+        select: ['idCategory'],
+      });
+
+      const existingCategoryIds = existingCategories.map(
+        (cat) => cat.idCategory,
+      );
+      const newCategories = idCategories
+        .filter((id) => !existingCategoryIds.includes(id))
+        .map((idCategory) => ({
+          idNote,
+          idCategory,
+        }));
+
+      if (newCategories.length) {
+        await manager.insert(Notes_Category, newCategories);
+      }
+    });
   }
 }

@@ -4,4 +4,5 @@ export class UpdateNoteI {
   description: string;
   active: 1 | 0;
   archive: 1 | 0;
+  idCategory?: number[];
 }

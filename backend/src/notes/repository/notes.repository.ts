@@ -42,7 +42,11 @@ export class NotesRepository {
     }
   }
 
-  async updateNote(noteUpdateReq: UpdateNoteDto, idReq: number) {
+  async updateNote(
+    noteUpdateReq: UpdateNoteDto,
+    idReq: number,
+    categories: number[],
+  ) {
     try {
       const res = await this._noteRepository.update(
         {
@@ -50,6 +54,12 @@ export class NotesRepository {
         },
         noteUpdateReq,
       );
+      if (categories) {
+        await this._notesCategoryRepository.updateNoteCategory(
+          idReq,
+          categories,
+        );
+      }
       return res;
     } catch (error) {
       throw new Error(error);
@@ -81,6 +91,9 @@ export class NotesRepository {
           author: idAuthor,
         },
         relations: ['id_category'],
+        order: {
+          created_at: 'ASC',
+        },
       });
       return res;
     } catch (error) {
