@@ -1,0 +1,18 @@
+.createCategory {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  border-radius: 10px;
+  background-color: #2f2f2faa;
+  height: 5%;
+  width: 15%;
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    color: #2f81d3;
+    cursor: pointer;
+  }
+}

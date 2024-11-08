@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../entities/entity";
 import { Select } from "../../../../components/Select/Select";
 import { CreateCategoryResponse } from "../../../../entities/dtos/CreateCategoryResponse.dto";
+import { CreateCategoryButton } from "../../../../components/CreateCategoryButton/CreateCategoryButton";
 
 interface Props {
   categories: CreateCategoryResponse[];
@@ -54,6 +55,7 @@ export const NoteList: React.FC<Props> = ({ categories }) => {
         </ModalLayout>
       )}
       <Select categories={categories} setCategory={setCategory} />
+      <CreateCategoryButton />
       <div className={styles.notesContainer}>
         {notes?.length === 0 ? (
           <NoDataAvailable message="No notes to show" />
