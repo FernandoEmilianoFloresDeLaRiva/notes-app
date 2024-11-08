@@ -4,15 +4,15 @@ A simple web application that allows users to create, edit and delete notes. The
 
 ## Table of Contents
 
-1. [Technologies](#technologies)
-2. [Installation Instructions](#installation-instructions)
-3. [Environment Setup](#environment-setup)
-4. [Running the Application](#running-the-application)
-5. [Default User Credentials](#default-user-credentials)
+1. [Technologies](#technologies) 💻
+2. [Installation Instructions](#installation-instructions) 🛠️
+3. [Environment Setup](#environment-setup) ⚙️
+4. [Running the Application](#running-the-application) 🚀
+5. [Default User Credentials](#default-user-credentials) 🔐🔑
 
-## Technologies
+## Technologies 💻
 
-### Backend:
+### Backend 🔧 
 - **NestJS**: A framework for building efficient, scalable Node.js server-side applications.
   - Version: `^10.0.0`
 - **PostgreSQL**: A relational database for storing notes.
@@ -24,11 +24,11 @@ A simple web application that allows users to create, edit and delete notes. The
 - **JWT**: For generating JSON Web Tokens for authentication.
   - Version: `^10.2.0`
 
-### Containerization: 
+### Containerization ☁️
 - **Docker**: To simplify the configuration and deployment of the application in isolated containers.
   - Version: `27.2.0`
 
-### Frontend:
+### Frontend 🌐
 - **React**: A JavaScript library for building user interfaces.
   - Version: `^18.3.1`
 - **Vite**: A fast, opinionated web bundler.
@@ -38,7 +38,7 @@ A simple web application that allows users to create, edit and delete notes. The
 - **React-Redux**: State management library for React.
   - Version: `^9.1.2`
 
-## Installation Instructions
+## Installation Instructions 🛠️
 
 ### Prerequisites
 
@@ -60,7 +60,7 @@ cd frontend
 npm install
 ```
 
-## Environment Setup
+## Environment Setup ⚙️
 Make sure that the following environment variables are set for both frontend and backend or create your own .env by following the .env.template:
 
 **Backend** (`backend/.env`)
@@ -78,7 +78,7 @@ BCRYPT_JUMPS=10
 VITE_API_URL=http://localhost:3000/
 ```
 
-## Running the Application
+## Running the Application 🚀
 To run the full application, you need to start both the backend and the frontend. You can do it with Docker, manually or with the shell script.
 
 ### Using Docker:
@@ -87,18 +87,6 @@ Ensure Docker is installed, then run the following script:
 docker compose up --build
 ```
 
-### Doing it manually
-```
-// Turns on the backend
-cd backend
-npm run start:dev
-
-cd ..
-
-// Turns on the frontend
-cd frontend
-npm run dev
-```
 ### Doing with the shell script
 ```bash
 // This command will give permission to run 
@@ -113,7 +101,22 @@ This script will:
 - Set up the database schema.
 - Build and run the Docker containers for the backend and frontend.
 
-## Default User Credentials
+If you did it with **docker** or the **shell script** the app will be available at http://localhost:3000 for the backend and http://localhost:80 for the frontend 🚀.
+
+### Doing it manually
+```
+// Turns on the backend
+cd backend
+npm run start:dev
+
+cd ..
+
+// Turns on the frontend
+cd frontend
+npm run dev
+```
+
+## Default User Credentials 🔐🔑
 ## You can use the default user credentials or create a new one
 - **Email**: `defaultuser@example.com`
 - **Password**: `defaultpassword`
