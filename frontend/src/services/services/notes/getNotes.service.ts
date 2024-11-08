@@ -1,5 +1,5 @@
 import { BASE_URL_NOTES } from "../../../constants";
-import { CreateNoteResponse } from "../../../entities/dtos/CreateNote.dto";
+import { CreateNoteResponse } from "../../../entities/dtos/CreateNoteResponse.dto";
 import { getWithAuth } from "../../api/getWithAuth";
 
 export const getNoteByUserIdAndArchiveService = async (

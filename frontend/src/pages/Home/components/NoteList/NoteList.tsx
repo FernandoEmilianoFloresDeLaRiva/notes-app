@@ -1,10 +1,12 @@
 import { useList } from "../../../../hooks/useList";
 import { NoDataAvailable } from "../../../../components/NoDataAvailable/NoDataAvailable";
 import { Notes } from "../Notes/Notes";
+import styles from "./NoteList.module.css";
+
 export const NoteList = () => {
   const { isLoading, notes } = useList();
   return (
-    <>
+    <div className={styles.notesContainer}>
       {notes?.length === 0 ? (
         <NoDataAvailable message="No notes to show" />
       ) : (
@@ -21,6 +23,6 @@ export const NoteList = () => {
           );
         })
       )}
-    </>
+    </div>
   );
 };

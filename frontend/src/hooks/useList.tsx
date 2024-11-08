@@ -3,7 +3,7 @@ import { DashboardContext } from "../pages/Home/Context/DashboardContext/Dashboa
 import { RootState } from "../entities/entity";
 import { useSelector } from "react-redux";
 import { DASHBOARD_NAMES } from "../constants";
-import { CreateNoteResponse } from "../entities/dtos/CreateNote.dto";
+import { CreateNoteResponse } from "../entities/dtos/CreateNoteResponse.dto";
 import { getNoteByUserIdAndArchiveService } from "../services/services/notes/getNotes.service";
 
 export const useList = () => {

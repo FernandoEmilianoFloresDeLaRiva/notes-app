@@ -5,5 +5,5 @@ export interface NoteResponse {
   active: number;
   archive: number;
   author: number;
-  created_at: Date;
+  created_at: string;
 }

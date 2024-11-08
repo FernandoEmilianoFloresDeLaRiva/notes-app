@@ -1,3 +1,4 @@
+export * from './CreateNoteT';
 export * from './CreateUserT';
 export * from './LoginUserT';
 export * from './NoteResponse';

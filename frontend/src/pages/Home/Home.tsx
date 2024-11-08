@@ -1,21 +1,19 @@
 import { useContext } from "react";
 import { HomeLayout } from "../../layout/HomeLayout/HomeLayout";
 import { NoteList } from "./components/NoteList/NoteList";
-import styles from "./Home.module.css";
 import { DashboardContext } from "./Context/DashboardContext/DashboardContext";
+import { FormNote } from "./components/FormNote/FormNote";
 
 export const Home = () => {
   const { dashboardName } = useContext(DashboardContext);
   const viewComponents = {
     see_all: <NoteList />,
-    write_note: null,
+    write_note: <FormNote />,
     see_archives: <NoteList />,
   };
   return (
     <HomeLayout>
-      <div className={styles.notesContainer}>
-        {viewComponents[dashboardName as keyof typeof viewComponents]}
-      </div>
+      {viewComponents[dashboardName as keyof typeof viewComponents]}
     </HomeLayout>
   );
 };

@@ -1,20 +1,12 @@
-import { NoteResponse } from "../entity";
+import { CreateNoteT } from "../entity";
 
-export class CreateNoteResponse {
-  id: number;
+export class CreateNoteDTO {
   title: string;
   description: string;
-  active: number;
-  archive: number;
   author: number;
-  created_at: string;
-  constructor(tokenRes: NoteResponse) {
-    this.id = tokenRes?.id;
+  constructor(tokenRes: CreateNoteT, authorId: number) {
     this.title = tokenRes?.title;
     this.description = tokenRes?.description;
-    this.active = tokenRes?.active;
-    this.archive = tokenRes?.archive;
-    this.author = tokenRes?.author;
-    this.created_at = new Date(tokenRes?.created_at).toLocaleString();
+    this.author = authorId;
   }
 }
