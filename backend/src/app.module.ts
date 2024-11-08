@@ -3,6 +3,7 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { envs } from './config/utils/getEnvVars';
 import { NotesModule } from './notes/notes.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { NotesModule } from './notes/notes.module';
     }),
     UsersModule,
     NotesModule,
+    CategoriesModule,
   ],
   controllers: [],
   providers: [],

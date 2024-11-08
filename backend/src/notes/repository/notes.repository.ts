@@ -1,22 +1,44 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Note } from '../entities/note.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateNoteI } from '../interfaces/CreateNoteI';
 import { UpdateNoteDto } from '../dto/update-note.dto';
+import { NotesCategoryRepository } from 'src/categories/repository/notes_Category.repository';
 
 @Injectable()
 export class NotesRepository {
   constructor(
     @InjectRepository(Note) private readonly _noteRepository: Repository<Note>,
+    @Inject(NotesCategoryRepository)
+    private readonly _notesCategoryRepository: NotesCategoryRepository,
+    private readonly dataSource: DataSource,
   ) {}
 
-  async createNote(noteReq: CreateNoteI) {
+  async createNote(noteReq: CreateNoteI, categories: number[]) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
     try {
-      const res = await this._noteRepository.save(noteReq);
-      return res;
+      const res = await this._noteRepository.create(noteReq);
+      const savedNote = await queryRunner.manager.save(res);
+
+      for (const categoryId of categories) {
+        const categoryRes =
+          await this._notesCategoryRepository.createNoteCategory({
+            idNote: savedNote.id,
+            idCategory: categoryId,
+          });
+        await queryRunner.manager.save(categoryRes);
+      }
+      await queryRunner.commitTransaction();
+      return savedNote;
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       throw new Error(error);
+    } finally {
+      await queryRunner.release();
     }
   }
 
@@ -50,12 +72,15 @@ export class NotesRepository {
     }
   }
 
-  async getNotesByArchiveStatus(idAuthor : number,statusArchive: 0 | 1) {
+  async getNotesByArchiveStatus(idAuthor: number, statusArchive: 0 | 1) {
     try {
-      const res = await this._noteRepository.findBy({
-        active: 1,
-        archive: statusArchive,
-        author : idAuthor,
+      const res = await this._noteRepository.find({
+        where: {
+          active: 1,
+          archive: statusArchive,
+          author: idAuthor,
+        },
+        relations: ['id_category'],
       });
       return res;
     } catch (error) {
@@ -65,9 +90,12 @@ export class NotesRepository {
 
   async getNoteById(id: number) {
     try {
-      const res = await this._noteRepository.findOneBy({
-        id: id,
-        active: 1,
+      const res = await this._noteRepository.findOne({
+        where: {
+          id: id,
+          active: 1,
+        },
+        relations: ['id_category'],
       });
       return res;
     } catch (error) {

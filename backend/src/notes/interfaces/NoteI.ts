@@ -6,4 +6,5 @@ export interface NoteI{
     archive : 1 | 0;
     author : number;
     created_at : Date;
+    id_category : number
 }
