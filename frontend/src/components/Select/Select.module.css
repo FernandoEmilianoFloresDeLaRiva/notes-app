@@ -1,0 +1,17 @@
+.selectContainer {
+  height: 5%;
+  width: 10%;
+  border-radius: 5px;
+  background-color: #2f2f2faa;
+  font-weight: bold;
+  border: none;
+  padding-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.selectContainer option {
+  background-color: rgba(41, 41, 41, 1);
+  border: none;
+}

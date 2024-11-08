@@ -8,6 +8,11 @@ export class CreateNoteResponse {
   archive: number;
   author: number;
   created_at: string;
+  id_category: {
+    id: number;
+    idNote: number;
+    idCategory: number;
+  }[];
   constructor(tokenRes: NoteResponse) {
     this.id = tokenRes?.id;
     this.title = tokenRes?.title;
@@ -16,5 +21,6 @@ export class CreateNoteResponse {
     this.archive = tokenRes?.archive;
     this.author = tokenRes?.author;
     this.created_at = new Date(tokenRes?.created_at).toLocaleString();
+    this.id_category = tokenRes.id_category;
   }
 }

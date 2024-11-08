@@ -1,0 +1,38 @@
+.categoryLabel {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.customCheckbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.customCheckbox:hover {
+  border-color: #555;
+}
+
+.customCheckbox:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.customCheckbox:checked::before {
+  content: "✔";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  left: 2px;
+  top: -2px;
+}

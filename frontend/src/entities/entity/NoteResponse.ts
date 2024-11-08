@@ -6,4 +6,9 @@ export interface NoteResponse {
   archive: number;
   author: number;
   created_at: string;
+  id_category: {
+    id: number;
+    idNote: number;
+    idCategory: number;
+  }[];
 }

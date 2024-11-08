@@ -7,10 +7,11 @@ import { postWithAuth } from "../../api/postWithAuth";
 export const postNoteService = async (
   id: number,
   data: CreateNoteT,
-  token: string
+  token: string,
+  categories: number[]
 ): Promise<unknown> => {
   try {
-    const reqBody = new CreateNoteDTO(data, id);
+    const reqBody = new CreateNoteDTO(data, id, categories);
     const response = await postWithAuth(BASE_URL_NOTES, token, reqBody);
     generateAlertSuccess("Your note has been successfully created");
     window.location.reload();

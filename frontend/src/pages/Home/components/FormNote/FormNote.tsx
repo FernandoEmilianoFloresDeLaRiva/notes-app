@@ -5,23 +5,28 @@ import { CreateNoteT } from "../../../../entities/entity";
 import { CreateNoteSchema } from "../../validator/CreateNote.validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextArea } from "../../../../components/TextArea/TextArea";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DashboardContext } from "../../Context/DashboardContext/DashboardContext";
 import { DASHBOARD_NAMES } from "../../../../constants";
 import { useValueForNote } from "../../../../hooks/useValueForNote";
+import { CreateCategoryResponse } from "../../../../entities/dtos/CreateCategoryResponse.dto";
+import CategoryCheckbox from "../../../../components/CategoryCheckBox/CategoryCheckBox";
 
 interface Props {
   titleForm: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleAction: (data: any) => void;
   token: string;
+  categories: CreateCategoryResponse[];
 }
 
 export const FormNote: React.FC<Props> = ({
   titleForm = "",
   handleAction,
   token,
+  categories,
 }) => {
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const { setDashboardName } = useContext(DashboardContext);
   const {
     register,
@@ -35,7 +40,7 @@ export const FormNote: React.FC<Props> = ({
   useValueForNote(token, setValue);
 
   const handleOnSubmit = (data: CreateNoteT) => {
-    handleAction(data);
+    handleAction({ ...data, categories: selectedCategories });
     setDashboardName(DASHBOARD_NAMES.SEE_ALL);
   };
 
@@ -59,6 +64,17 @@ export const FormNote: React.FC<Props> = ({
             config={register("description")}
             error={errors?.description?.message}
           />
+          <div className={styles.categoryList}>
+            {categories?.map((c) => (
+              <CategoryCheckbox
+                key={c.id}
+                categoryId={c.id}
+                categoryName={c.category_name}
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+              />
+            ))}
+          </div>
         </div>
         <button className={styles.buttonLogIn}>Create a note</button>
       </form>

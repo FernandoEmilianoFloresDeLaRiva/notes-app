@@ -12,17 +12,23 @@ import { FormNote } from "../FormNote/FormNote";
 import { updateNoteByIdService } from "../../../../services/services/notes";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../entities/entity";
+import { Select } from "../../../../components/Select/Select";
+import { CreateCategoryResponse } from "../../../../entities/dtos/CreateCategoryResponse.dto";
 
-export const NoteList = () => {
+interface Props {
+  categories: CreateCategoryResponse[];
+}
+
+export const NoteList: React.FC<Props> = ({ categories }) => {
   const { editNoteState, changeNoteState } = useContext(EditNoteContext);
-  const { notes } = useList(editNoteState.isOpen);
+  const { notes, setCategory } = useList(editNoteState.isOpen);
   const { token } = useSelector((root: RootState) => root.auth);
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
     changeNoteState(INITIAL_STATE_EDIT_NOTE);
   };
   return (
-    <div className={styles.notesContainer}>
+    <div className={styles.mainContainer}>
       {editNoteState.isOpen && (
         <ModalLayout handleClose={handleClose}>
           <FormNote
@@ -45,22 +51,25 @@ export const NoteList = () => {
           />
         </ModalLayout>
       )}
-      {notes?.length === 0 ? (
-        <NoDataAvailable message="No notes to show" />
-      ) : (
-        notes?.map((n) => {
-          return (
-            <Notes
-              key={n.id}
-              archive={n.archive}
-              title={n.title}
-              description={n.description}
-              idNote={n.id}
-              createdAt={n.created_at}
-            />
-          );
-        })
-      )}
+      <Select categories={categories} setCategory={setCategory} />
+      <div className={styles.notesContainer}> 
+        {notes?.length === 0 ? (
+          <NoDataAvailable message="No notes to show" />
+        ) : (
+          notes?.map((n) => {
+            return (
+              <Notes
+                key={n.id}
+                archive={n.archive}
+                title={n.title}
+                description={n.description}
+                idNote={n.id}
+                createdAt={n.created_at}
+              />
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

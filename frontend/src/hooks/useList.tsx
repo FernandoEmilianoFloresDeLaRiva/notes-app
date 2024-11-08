@@ -8,6 +8,7 @@ import { getNoteByUserIdAndArchiveService } from "../services/services/notes/get
 
 export const useList = (isModalOpen = false) => {
   const [notes, setNotes] = useState<CreateNoteResponse[]>();
+  const [category, setCategory] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { dashboardName } = useContext(DashboardContext);
   const { token, user } = useSelector((state: RootState) => state.auth);
@@ -24,7 +25,14 @@ export const useList = (isModalOpen = false) => {
     const status = dashboardName === DASHBOARD_NAMES.SEE_ALL ? 0 : 1;
     getNoteByUserIdAndArchiveService(user.id, token, status)
       .then((res) => {
-        setNotes(res);
+        if (category === 0) {
+          setNotes(res);
+        } else {
+          const filterRes = res.filter((n) =>
+            n.id_category.some((c) => c.idCategory === category)
+          );
+          setNotes(filterRes);
+        }
       })
       .catch((err) => {
         throw new Error(err);
@@ -32,6 +40,6 @@ export const useList = (isModalOpen = false) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [dashboardName, isModalOpen]);
-  return { isLoading, notes };
+  }, [dashboardName, isModalOpen, category]);
+  return { isLoading, notes, setCategory };
 };
