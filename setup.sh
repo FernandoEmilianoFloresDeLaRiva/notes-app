@@ -23,7 +23,7 @@ fi
 
 # Build and start the Docker containers
 echo "Starting containers with Docker Compose..."
-docker-compose up --build -d
+docker compose up --build -d
 
 echo "Application deployed successfully."
 echo "Frontend available at http://localhost"
