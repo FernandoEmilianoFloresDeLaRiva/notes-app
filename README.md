@@ -105,7 +105,7 @@ Make sure you have **npm** and **Docker** installed.
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/ensolvers-github-challenges/FloresDeLaRiva-003805.git
+git clone https://github.com/FernandoEmilianoFloresDeLaRiva/notes-app.git
 cd backend
 npm install
 cd ..
